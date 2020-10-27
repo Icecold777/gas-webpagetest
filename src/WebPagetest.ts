@@ -34,6 +34,33 @@ type TestResult = {
   responses_200: number
   responses_404: number
   responses_other: number
+  firstByteRepeatView: number
+  firstLayoutRepeatView: number
+  firstPaintRepeatView: number
+  firstContentfulPaintRepeatView: number
+  firstMeaningfulPaintRepeatView: number
+  speedIndexRepeatView: number
+  domInteractiveRepeatView: number
+  loadTimeRepeatView: number
+  visualCompleteRepeatView: number
+  fullyLoadedRepeatView: number
+  firstInteractiveRepeatView: number
+  lastInteractiveRepeatView: number
+  timeToInteractiveRepeatView: number
+  breakdownRepeatView: any
+  visualComplete85RepeatView: number
+  visualComplete90RepeatView: number
+  visualComplete95RepeatView: number
+  visualComplete99RepeatView: number
+  bytesOutRepeatView: number
+  bytesOutDocRepeatView: number
+  bytesInRepeatView: number
+  bytesInDocRepeatView: number
+  connectionsRepeatView: number
+  requestsDocRepeatView: number
+  responses_200RepeatView: number
+  responses_404RepeatView: number
+  responses_otherRepeatView: number
 }
 
 class WebPagetest {
@@ -186,6 +213,35 @@ class WebPagetest {
             responses_404,
             responses_other,
           },
+          repeatView: {
+            TTFB: firstByteRepeatView,
+            firstLayout: firstLayoutRepeatView,
+            firstPaint: firstPaintRepeatView,
+            firstContentfulPaint: firstContentfulPaintRepeatView,
+            firstMeaningfulPaint: firstMeaningfulPaintRepeatView,
+            SpeedIndex: speedIndexRepeatView,
+            domInteractive: domInteractiveRepeatView,
+            loadTime: loadTimeRepeatView,
+            visualComplete: visualCompleteRepeatView,
+            fullyLoaded: fullyLoadedRepeatView,
+            FirstInteractive: firstInteractiveRepeatView,
+            LastInteractive: lastInteractiveRepeatView,
+            'lighthouse.Performance.interactive': timeToInteractiveRepeatView,
+            breakdown: breakdownRepeatView,
+            visualComplete85: visualComplete85RepeatView,
+            visualComplete90: visualComplete90RepeatView,
+            visualComplete95: visualComplete95RepeatView,
+            visualComplete99: visualComplete99RepeatView,
+            bytesOut: bytesOutRepeatView,
+            bytesOutDoc: bytesOutDocRepeatView,
+            bytesIn: bytesInRepeatView,
+            bytesInDoc: bytesInDocRepeatView,
+            connections: connectionsRepeatView,
+            requestsDoc: requestsDocRepeatView,
+            responses_200: responses_200RepeatView,
+            responses_404: responses_404RepeatView,
+            responses_other: responses_otherRepeatView,
+          },
         },
         summary,
       },
@@ -228,6 +284,34 @@ class WebPagetest {
       responses_200,
       responses_404,
       responses_other,
+      firstByteRepeatView,
+      firstLayoutRepeatView,
+      firstPaintRepeatView,
+      firstContentfulPaintRepeatView,
+      firstMeaningfulPaintRepeatView,
+      speedIndexRepeatView,
+      domInteractiveRepeatView,
+      loadTimeRepeatView,
+      visualCompleteRepeatView,
+      fullyLoadedRepeatView,
+      firstInteractiveRepeatView,
+      lastInteractiveRepeatView,
+      timeToInteractiveRepeatView:
+        firstInteractiveRepeatView || lastInteractiveRepeatView || timeToInteractiveRepeatView,
+      breakdownRepeatView,
+      visualComplete85RepeatView,
+      visualComplete90RepeatView,
+      visualComplete95RepeatView,
+      visualComplete99RepeatView,
+      bytesOutRepeatView,
+      bytesOutDocRepeatView,
+      bytesInRepeatView,
+      bytesInDocRepeatView,
+      connectionsRepeatView,
+      requestsDocRepeatView,
+      responses_200RepeatView,
+      responses_404RepeatView,
+      responses_otherRepeatView,
     }
   }
 
@@ -436,6 +520,166 @@ class WebPagetest {
       {
         name: 'responses_other',
         value: (result: TestResult) => result.responses_other,
+      },
+      {
+        name: 'firstByteRepeatView',
+        value: (result: TestResult) => Utils.transform(result.firstByteRepeatView),
+      },
+      {
+        name: 'firstLayoutRepeatView',
+        value: (result: TestResult) => Utils.transform(result.firstLayoutRepeatView),
+      },
+      {
+        name: 'firstPaintRepeatView',
+        value: (result: TestResult) => Utils.transform(result.firstPaintRepeatView),
+      },
+      {
+        name: 'firstContentfulPaintRepeatView',
+        value: (result: TestResult) => Utils.transform(result.firstContentfulPaintRepeatView),
+      },
+      {
+        name: 'firstMeaningfulPaintRepeatView',
+        value: (result: TestResult) => Utils.transform(result.firstMeaningfulPaintRepeatView),
+      },
+      {
+        name: 'speedIndexRepeatView',
+        value: (result: TestResult) => Utils.transform(result.speedIndexRepeatView),
+      },
+      {
+        name: 'domInteractiveRepeatView',
+        value: (result: TestResult) => Utils.transform(result.domInteractiveRepeatView),
+      },
+      {
+        name: 'loadTimeRepeatView',
+        value: (result: TestResult) => Utils.transform(result.loadTimeRepeatView),
+      },
+      {
+        name: 'visualCompleteRepeatView',
+        value: (result: TestResult) => Utils.transform(result.visualCompleteRepeatView),
+      },
+      {
+        name: 'fullyLoadedRepeatView',
+        value: (result: TestResult) => Utils.transform(result.fullyLoadedRepeatView),
+      },
+      {
+        name: 'timeToInteractiveRepeatView',
+        value: (result: TestResult) => Utils.transform(result.timeToInteractiveRepeatView),
+      },
+      {
+        name: 'html.bytesRepeatView',
+        value: (result: TestResult) => Utils.transform(result.breakdownRepeatView.html.bytes, 1),
+      },
+      {
+        name: 'html.requestsRepeatView',
+        value: (result: TestResult) => result.breakdownRepeatView.html.requests,
+      },
+      {
+        name: 'js.bytesRepeatView',
+        value: (result: TestResult) => Utils.transform(result.breakdownRepeatView.js.bytes, 1),
+      },
+      {
+        name: 'js.requestsRepeatView',
+        value: (result: TestResult) => result.breakdownRepeatView.js.requests,
+      },
+      {
+        name: 'css.bytesRepeatView',
+        value: (result: TestResult) => Utils.transform(result.breakdownRepeatView.css.bytes, 1),
+      },
+      {
+        name: 'css.requestsRepeatView',
+        value: (result: TestResult) => result.breakdownRepeatView.css.requests,
+      },
+      {
+        name: 'image.bytes',
+        value: (result: TestResult) => Utils.transform(result.breakdown.image.bytes, 1),
+      },
+      {
+        name: 'image.requests',
+        value: (result: TestResult) => result.breakdown.image.requests,
+      },
+      {
+        name: 'font.bytesRepeatView',
+        value: (result: TestResult) => Utils.transform(result.breakdownRepeatView.font.bytes, 1),
+      },
+      {
+        name: 'font.requestsRepeatView',
+        value: (result: TestResult) => result.breakdownRepeatView.font.requests,
+      },
+      {
+        name: 'flash.bytesRepeatView',
+        value: (result: TestResult) => Utils.transform(result.breakdownRepeatView.flash.bytes, 1),
+      },
+      {
+        name: 'flash.requestsRepeatView',
+        value: (result: TestResult) => result.breakdownRepeatView.flash.requests,
+      },
+      {
+        name: 'video.bytesRepeatView',
+        value: (result: TestResult) => Utils.transform(result.breakdownRepeatView.video.bytes, 1),
+      },
+      {
+        name: 'video.requestsRepeatView',
+        value: (result: TestResult) => result.breakdownRepeatView.video.requests,
+      },
+      {
+        name: 'other.bytesRepeatView',
+        value: (result: TestResult) => Utils.transform(result.breakdownRepeatView.other.bytes, 1),
+      },
+      {
+        name: 'other.requestsRepeatView',
+        value: (result: TestResult) => result.breakdownRepeatView.other.requests,
+      },
+      {
+        name: 'visualComplete85RepeatView',
+        value: (result: TestResult) => Utils.transform(result.visualComplete85RepeatView, 1),
+      },
+      {
+        name: 'visualComplete90RepeatView',
+        value: (result: TestResult) => Utils.transform(result.visualComplete90RepeatView, 1),
+      },
+      {
+        name: 'visualComplete95RepeatView',
+        value: (result: TestResult) => Utils.transform(result.visualComplete95RepeatView, 1),
+      },
+      {
+        name: 'visualComplete99RepeatView',
+        value: (result: TestResult) => Utils.transform(result.visualComplete99RepeatView, 1),
+      },
+      {
+        name: 'bytesOutRepeatView',
+        value: (result: TestResult) => Utils.transform(result.bytesOutRepeatView, 1),
+      },
+      {
+        name: 'bytesOutDocRepeatView',
+        value: (result: TestResult) => Utils.transform(result.bytesOutDocRepeatView, 1),
+      },
+      {
+        name: 'bytesInRepeatView',
+        value: (result: TestResult) => Utils.transform(result.bytesInRepeatView, 1),
+      },
+      {
+        name: 'bytesInDocRepeatView',
+        value: (result: TestResult) => Utils.transform(result.bytesInDocRepeatView, 1),
+      },
+      {
+        name: 'connectionsRepeatView',
+        value: (result: TestResult) => result.connectionsRepeatView,
+      },
+      {
+        name: 'requestsDocRepeatView',
+        value: (result: TestResult) => result.requestsDocRepeatView,
+      },
+      {
+        name: 'responses_200RepeatView',
+        value: (result: TestResult) => result.responses_200RepeatView,
+      },
+      {
+        name: 'responses_404RepeatView',
+        value: (result: TestResult) => result.responses_404RepeatView,
+      },
+      {
+        name: 'responses_otherRepeatView',
+        value: (result: TestResult) => result.responses_otherRepeatView,
       },
     ]
   }
